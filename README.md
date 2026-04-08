@@ -28,7 +28,7 @@ A visually immersive, physical-notebook style calendar built with **Next.js 14**
 ### Installation & Run
 1. **Clone the repo:**
    ```bash
-   git clone [https://github.com/Ananya14-11/Interactive-Calendar.git](https://github.com/Ananya14-11/Interactive-Calendar.git)
+   git clone https://github.com/Ananya14-11/Interactive-Calendar.git
 
 2. **Install dependencies:**
     ```bash
