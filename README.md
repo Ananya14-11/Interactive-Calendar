@@ -41,6 +41,3 @@ A visually immersive, physical-notebook style calendar built with **Next.js 14**
 4. **View the app:**
     ```bash
     https://interactive-calendar-lac.vercel.app/
-## 🎥 Demo
-
-[▶️ Watch Demo](./Ananya14-11_Interactive-Calendar%20-%20Google%20Chrome%202026-04-08%2009-10-54.mp4)
