@@ -41,3 +41,7 @@ A visually immersive, physical-notebook style calendar built with **Next.js 14**
 4. **View the app:**
     ```bash
     https://interactive-calendar-lac.vercel.app/
+
+# Demo
+
+https://github.com/user-attachments/assets/0f6477b4-5921-4580-80f2-d34c9d73c0e4
