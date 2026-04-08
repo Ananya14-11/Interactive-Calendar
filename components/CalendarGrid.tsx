@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import {Variants,motion, AnimatePresence } from 'framer-motion';
 import { monthThemes, indianHolidays } from './Calendar';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 
 // ─── Animation Variants ──────────────────────────────────────────────────────
 
-const slideVariants = {
+const slideVariants: Variants = {
   enter: (dir: number) => ({
     x: dir > 0 ? 60 : -60,
     opacity: 0,
@@ -37,7 +37,7 @@ const slideVariants = {
   }),
 };
 
-const gridVariants = {
+const gridVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -47,7 +47,7 @@ const gridVariants = {
   },
 };
 
-const cellVariants = {
+const cellVariants: Variants = {
   hidden: { opacity: 0, scale: 0.7, y: 6 },
   visible: {
     opacity: 1,
