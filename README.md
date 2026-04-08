@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Interactive Calendar 🗓️
 
-## Getting Started
+A visually immersive, physical-notebook style calendar built with **Next.js 14**, **Tailwind CSS**, and **TypeScript**. This project blends a tactile "skeuomorphic" design with modern functional features like range selection and persistent journaling.
 
-First, run the development server:
+## 🌟 Key Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+* **Tactile Notebook Design:** A custom-engineered spiral coil header using advanced CSS (`clipPath`, `linear-gradient`) and stacked paper layers to mimic a real desk calendar.
+* **Dynamic Monthly Themes:** 12 unique seasonal themes (e.g., "Winter Solstice" to "Deep Winter") that update the UI color palette and hero imagery automatically.
+* **Indian Public Holidays:** Built-in holiday tracker for 2025 and 2026, featuring specific markers for cultural observances like Diwali, Holi, and Republic Day.
+* **Smart Notes System:** A side-integrated `NotesPanel` that allows users to save thoughts for specific dates, persisted locally via `localStorage`.
+* **Range Selection:** Intuitive date-clicking logic that allows users to define a start and end range for planning.
+* **Responsive Layout:** A fluid design that shifts from a side-by-side view on desktops to a stacked "flip-calendar" view on mobile devices.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* **Framework:** Next.js 14 (App Router)
+* **Styling:** Tailwind CSS
+* **State Management:** React Hooks (`useState`, `useEffect`)
+* **Persistence:** Browser LocalStorage API
+* **Type Safety:** TypeScript
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started
 
-## Learn More
+### Prerequisites
+* Node.js 18.x or later
+* npm / yarn / pnpm
 
-To learn more about Next.js, take a look at the following resources:
+### Installation & Run
+1. **Clone the repo:**
+   ```bash
+   git clone [https://github.com/Ananya14-11/Interactive-Calendar.git](https://github.com/Ananya14-11/Interactive-Calendar.git)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install dependencies:**
+    ```bash
+    npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Launch development server:**
+    ```bash
+    npm run dev
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **View the app:**           
