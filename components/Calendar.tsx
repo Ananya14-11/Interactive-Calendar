@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import CalendarGrid from './CalendarGrid';
 import HeroImage from './HeroImage';
 import MonthNav from './MonthNav';
@@ -114,19 +115,40 @@ export default function Calendar() {
   const ringCount = 28;
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 mt-16 mb-20 relative">
+    <motion.div 
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="w-full max-w-5xl mx-auto px-4 sm:px-6 mt-16 mb-20 relative"
+    >
 
       {/* --- Stacked Paper Layers --- */}
-      <div className="absolute -bottom-3 left-8 right-8 h-10 bg-white/60 border border-gray-200 rounded-2xl shadow-sm -z-20 scale-[0.97]" />
-      <div className="absolute -bottom-1.5 left-4 right-4 h-10 bg-white/80 border border-gray-200 rounded-2xl shadow-sm -z-10 scale-[0.99]" />
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9, y: -20 }}
+        animate={{ opacity: 1, scale: 0.97, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
+        className="absolute -bottom-3 left-8 right-8 h-10 bg-white/60 border border-gray-200 rounded-2xl shadow-sm -z-20" 
+      />
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9, y: -10 }}
+        animate={{ opacity: 1, scale: 0.99, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.5, ease: "easeOut" }}
+        className="absolute -bottom-1.5 left-4 right-4 h-10 bg-white/80 border border-gray-200 rounded-2xl shadow-sm -z-10" 
+      />
 
       {/* --- Main Calendar Container --- */}
-      <div className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl border border-gray-100 relative ring-1 ring-black/5">
+      <div className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl border border-gray-100 relative ring-1 ring-black/5" style={{ perspective: '2000px' }}>
 
         {/* --- Responsive Spiral Coil --- */}
         <div className="absolute -top-6 left-0 right-0 h-10 flex justify-between items-center px-6 sm:px-10 pointer-events-none z-20">
           {Array.from({ length: ringCount }).map((_, i) => (
-            <div key={i} className={`flex flex-col items-center relative h-full ${i > 15 ? 'hidden sm:flex' : 'flex'}`}>
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, y: -20, scale: 0.5 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.5 + i * 0.02, type: "spring", stiffness: 300, damping: 20 }}
+              className={`flex flex-col items-center relative h-full ${i > 15 ? 'hidden sm:flex' : 'flex'}`}
+            >
               <div className="absolute w-[2px] sm:w-[3px] h-6 sm:h-8 rounded-full opacity-60 z-10"
                 style={{ left: '50%', top: '-2px', transform: 'translateX(-50%) rotate(20deg)', background: 'linear-gradient(to bottom, #222, #000, #333)' }}
               />
@@ -134,12 +156,44 @@ export default function Calendar() {
               <div className="absolute w-[3px] sm:w-[4px] h-7 sm:h-9 border-[1.5px] sm:border-2 border-black rounded-full shadow-md z-30"
                 style={{ left: '50%', top: '-5px', transform: 'translateX(-50%) rotate(-15deg)', background: 'linear-gradient(to bottom, #000, #444, #000)', clipPath: 'ellipse(100% 70% at 50% 30%)' }}
               />
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* --- Layout --- */}
-        <div className="flex flex-col lg:flex-row pt-6 sm:pt-10 overflow-hidden rounded-2xl">
+        {/* --- Layout (Physical Page Flip) --- */}
+        <div className="relative rounded-2xl" style={{ transformStyle: 'preserve-3d' }}>
+          <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+            <motion.div
+              key={currentDate.toISOString()}
+              custom={direction}
+              variants={{
+                enter: (dir: number) => ({
+                  rotateX: dir > 0 ? -90 : 90,
+                  opacity: 0.2,
+                  scale: 0.95,
+                  y: dir > 0 ? -10 : 10,
+                }),
+                center: {
+                  rotateX: 0,
+                  opacity: 1,
+                  scale: 1,
+                  y: 0,
+                  transition: { type: 'spring', stiffness: 220, damping: 25 },
+                },
+                exit: (dir: number) => ({
+                  rotateX: dir > 0 ? 90 : -90,
+                  opacity: 0,
+                  scale: 0.95,
+                  y: dir > 0 ? 10 : -10,
+                  transition: { type: 'spring', stiffness: 220, damping: 25 },
+                }),
+              }}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              style={{ transformOrigin: 'top center', backfaceVisibility: 'hidden' }}
+              className="flex flex-col lg:flex-row pt-6 sm:pt-10 overflow-hidden rounded-2xl bg-white w-full"
+            >
 
           {/* Left: Visuals & Memos */}
           <div className="w-full lg:w-1/2 p-4 sm:p-6 lg:border-r border-gray-100 flex flex-col gap-6">
@@ -165,6 +219,7 @@ export default function Calendar() {
                 onDateClick={handleDateClick}
                 notes={notes}
               />
+              </div>
             </div>
 
             {/* Holiday Legend */}
@@ -172,9 +227,10 @@ export default function Calendar() {
               <span className="w-2 h-2 rounded-full bg-orange-400 inline-block" />
               <span>Indian public holiday</span>
             </div>
-          </div>
+          </motion.div>
+        </AnimatePresence>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
